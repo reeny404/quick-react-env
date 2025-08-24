@@ -4,7 +4,7 @@ import { execSync } from 'child_process';
 import chalk from 'chalk';
 import ora from 'ora';
 import { ProjectConfig } from './types.js';
-import { getESLintConfig } from './templates/eslint.js';
+import { copyESLintConfig } from './templates/eslint.js';
 import { getPrettierConfig } from './templates/prettier.js';
 import { getHuskyConfig } from './templates/husky.js';
 
@@ -14,7 +14,6 @@ export async function createProject(config: ProjectConfig): Promise<void> {
   const spinner = ora('Creating project...').start();
   
   try {
-    // Create project using npx commands
     if (config.framework === 'vite') {
       await createViteProject(projectPath, config);
     } else {
@@ -81,13 +80,11 @@ async function createViteProject(projectPath: string, config: ProjectConfig): Pr
   const originalCwd = process.cwd();
   
   try {
-    // Change to parent directory to create project
     const parentDir = path.dirname(projectPath);
     const projectName = path.basename(projectPath);
     
     process.chdir(parentDir);
     
-    // Use npx create-vite to create the project
     const createCommand = `npx create-vite@latest ${projectName} --template react-ts --yes`;
     execSync(createCommand, { stdio: 'inherit' });
     
@@ -100,13 +97,11 @@ async function createNextProject(projectPath: string, config: ProjectConfig): Pr
   const originalCwd = process.cwd();
   
   try {
-    // Change to parent directory to create project
     const parentDir = path.dirname(projectPath);
     const projectName = path.basename(projectPath);
     
     process.chdir(parentDir);
     
-    // Use npx create-next-app to create the project
     const createCommand = `npx create-next-app@latest ${projectName} --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --yes`;
     execSync(createCommand, { stdio: 'inherit' });
     
@@ -116,13 +111,7 @@ async function createNextProject(projectPath: string, config: ProjectConfig): Pr
 }
 
 async function setupESLint(projectPath: string, config: ProjectConfig): Promise<void> {
-  const eslintConfig = getESLintConfig(config);
-  
-  if (config.framework === 'vite') {
-    await fs.writeFile(path.join(projectPath, 'eslint.config.js'), eslintConfig.vite);
-  } else {
-    await fs.writeFile(path.join(projectPath, '.eslintrc.json'), eslintConfig.next);
-  }
+  await copyESLintConfig(projectPath, config);
 }
 
 async function setupPrettier(projectPath: string, config: ProjectConfig): Promise<void> {
@@ -164,11 +153,9 @@ async function installAdditionalDependencies(projectPath: string, {useESLint, us
     const additionalDeps = [];
     
     if (useESLint) {
-      // Vite와 Next.js에서 이미 제공하는 ESLint 패키지들을 제외하고 추가 패키지만 설치
       if (framework === 'vite') {
         additionalDeps.push('@typescript-eslint/eslint-plugin', '@typescript-eslint/parser', 'eslint-plugin-simple-import-sort');
       } else {
-        // Next.js는 이미 TypeScript ESLint를 포함하므로 simple-import-sort만 추가
         additionalDeps.push('eslint-plugin-simple-import-sort');
       }
     }
