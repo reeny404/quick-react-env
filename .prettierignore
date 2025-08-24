@@ -7,6 +7,6 @@ node_modules
 # Package manager files
 pnpm-lock.yaml
 
-# Other generated files
+# Generated files
 .vscode
 .git

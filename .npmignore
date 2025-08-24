@@ -1,0 +1,61 @@
+# Source files (not needed in npm package)
+src/
+tsconfig.json
+
+# Development files
+.git/
+.gitignore
+.npmignore
+
+# Development dependencies
+node_modules/
+
+# Build cache
+.cache/
+.parcel-cache/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files
+.env*
+
+# Test files
+test/
+tests/
+__tests__/
+*.test.js
+*.test.ts
+*.spec.js
+*.spec.ts
+
+# Documentation (keep README.md as it's included in package.json files array)
+docs/
+*.md
+!README.md
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+.circleci/
+
+# Misc
+.editorconfig
+.eslintrc*
+.prettierrc*
+.stylelintrc*
