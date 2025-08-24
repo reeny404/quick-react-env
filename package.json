@@ -15,8 +15,7 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "publish": "npm publish"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "react",
