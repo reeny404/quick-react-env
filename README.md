@@ -12,6 +12,8 @@
 ## 빠른 시작
 
 ```bash
+npm i init-react-env
+
 npx init-env
 ```
 
