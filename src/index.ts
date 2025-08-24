@@ -13,26 +13,11 @@ program
   .description('Initialize React + TypeScript + Tailwind + ESLint + Prettier + Husky project')
   .version('1.0.0')
   .argument('[project-name]', 'Project name')
-  .option('-f, --framework <framework>', 'Framework selection (vite|next)', 'vite')
-  .option('-y, --yes', 'Automatically answer yes to all questions')
-  .action(async (projectName, options) => {
+  .action(async (projectName) => {
     try {
       console.log(chalk.blue.bold('🚀 Starting React Environment Setup Tool...\n'));
 
-      let config: ProjectConfig;
-
-      if (options.yes) {
-        config = {
-          projectName: projectName || 'my-react-app',
-          framework: options.framework,
-          useHusky: true,
-          useESLint: true,
-          usePrettier: true,
-          packageManager: 'pnpm'
-        };
-      } else {
-        config = await promptForConfig(projectName, options);
-      }
+      const config = await promptForConfig(projectName);
 
       await createProject(config);
       
@@ -48,7 +33,7 @@ program
     }
   });
 
-async function promptForConfig(projectName?: string, options?: any): Promise<ProjectConfig> {
+async function promptForConfig(projectName?: string): Promise<ProjectConfig> {
   const answers = await inquirer.prompt([
     {
       type: 'input',
@@ -71,7 +56,7 @@ async function promptForConfig(projectName?: string, options?: any): Promise<Pro
         { name: 'Vite (Fast development environment)', value: 'vite' },
         { name: 'Next.js (SSR/SSG support)', value: 'next' }
       ],
-      default: options?.framework || 'vite'
+      default: 'vite'
     },
     {
       type: 'list',
@@ -85,21 +70,33 @@ async function promptForConfig(projectName?: string, options?: any): Promise<Pro
       default: 'pnpm'
     },
     {
-      type: 'confirm',
+      type: 'list',
       name: 'useESLint',
       message: 'Set up ESLint?',
+      choices: [
+        { name: 'Yes', value: true },
+        { name: 'No', value: false }
+      ],
       default: true
     },
     {
-      type: 'confirm',
+      type: 'list',
       name: 'usePrettier',
       message: 'Set up Prettier?',
+      choices: [
+        { name: 'Yes', value: true },
+        { name: 'No', value: false }
+      ],
       default: true
     },
     {
-      type: 'confirm',
+      type: 'list',
       name: 'useHusky',
       message: 'Set up Husky (Git hooks)?',
+      choices: [
+        { name: 'Yes', value: true },
+        { name: 'No', value: false }
+      ],
       default: true
     }
   ]);

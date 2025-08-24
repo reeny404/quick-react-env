@@ -1,21 +1,19 @@
 <div align="center">
-<img src="public/logo.png" height="200">
-<p>
-A CLI tool that automatically sets up React projects <br/>with TypeScript, Tailwind CSS, and essential development tools.
-</p>
+  <img src="public/logo.png" height="200">
+  <p>
+    A CLI tool that automatically sets up React projects 
+    <br/>
+    with TypeScript, Tailwind CSS, and essential development tools.
+  </p>
 </div>
+
 <br/>
 
 ## 빠른 시작
 
 ```bash
-npx init-env my-app --framework vite
+npx init-env
 ```
-
-| 옵션 | 설명 | 기본값 |
-|------|------|--------|
-| `--framework <framework>` | 프레임워크 선택 (vite\|next) | vite |
-| `--yes` | 모든 질문에 자동으로 yes 답변 | false |
 
 ## 지원하는 도구들
 

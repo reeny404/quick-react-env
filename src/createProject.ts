@@ -79,7 +79,7 @@ export async function createProject(config: ProjectConfig): Promise<void> {
 
   spinner.text = 'Installing dependencies...';
   spinner.start();
-
+  
   try {
     await installDependencies(projectPath, config);
     spinner.succeed('Dependencies installed');
@@ -156,10 +156,7 @@ async function setupHusky(projectPath: string, config: ProjectConfig): Promise<v
   const packageJsonPath = path.join(projectPath, 'package.json');
   const packageJson = await fs.readJson(packageJsonPath);
   
-  if (!packageJson.scripts.prepare) {
-    packageJson.scripts.prepare = 'husky';
-  }
-  
+
   if (!packageJson['lint-staged']) {
     packageJson['lint-staged'] = {
       '**/*.{ts,tsx}': [
@@ -183,10 +180,11 @@ async function installDependencies(projectPath: string, config: ProjectConfig): 
                           config.packageManager === 'yarn' ? 'yarn install' :
                           'npm install';
     
-    execSync(installCommand, { stdio: 'pipe' });
+
+    execSync(installCommand, { stdio: 'inherit' });
     
     if (config.useHusky) {
-      execSync(`${config.packageManager} run prepare`, { stdio: 'pipe' });
+      execSync('npx husky', { stdio: 'inherit' });
     }
     
   } finally {
