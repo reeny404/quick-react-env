@@ -1,5 +1,5 @@
 {
-  "name": "init-env",
+  "name": "init-react-env",
   "version": "1.0.0",
   "description": "React + TypeScript + Tailwind + ESLint + Prettier + Husky 프로젝트 초기화 도구",
   "main": "dist/index.js",
@@ -15,7 +15,8 @@
     "build": "tsc",
     "dev": "tsc --watch",
     "prepublishOnly": "npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish": "npm version patch && npm publish"
   },
   "keywords": [
     "react",
@@ -34,12 +35,8 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourusername/init-env.git"
+    "url": "git+https://github.com/reeny404/react-starter-cli"
   },
-  "bugs": {
-    "url": "https://github.com/yourusername/init-env/issues"
-  },
-  "homepage": "https://github.com/yourusername/init-env#readme",
   "engines": {
     "node": ">=18.0.0"
   },
