@@ -88,8 +88,6 @@ export default {
   ],
 } satisfies Config`;
 
-
-
   const layoutTsx = `import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -98,7 +96,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: '${config.projectName}',
-  description: 'Next.js + React + TypeScript + Tailwind CSS 프로젝트',
+  description: 'Next.js + React + TypeScript + Tailwind CSS project',
 }
 
 export default function RootLayout({

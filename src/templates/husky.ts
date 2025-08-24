@@ -4,19 +4,16 @@ export function getHuskyConfig(config: ProjectConfig) {
   const preCommit = `#!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-# TypeScript 타입 체크
-echo "🔍 TypeScript 타입 체크 중..."
+echo "Running TypeScript type check..."
 ${config.packageManager} run tsc --noEmit
 
-# ESLint 검사
-echo "🔍 ESLint 검사 중..."
+echo "Running ESLint..."
 ${config.packageManager} run lint
 
-# Prettier 포맷팅
-echo "💅 Prettier 포맷팅 중..."
+echo "Running Prettier..."
 ${config.packageManager} run format
 
-echo "✅ 모든 검사가 통과했습니다!"
+echo "All checks passed!"
 `;
 
   return { preCommit };

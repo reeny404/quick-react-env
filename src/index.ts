@@ -53,8 +53,8 @@ async function promptForConfig(projectName?: string): Promise<ProjectConfig> {
       name: 'framework',
       message: 'Which framework would you like to use?',
       choices: [
-        { name: 'Vite (Fast development environment)', value: 'vite' },
-        { name: 'Next.js (SSR/SSG support)', value: 'next' }
+        { name: 'Vite', value: 'vite' },
+        { name: 'Next.js', value: 'next' }
       ],
       default: 'vite'
     },
@@ -63,7 +63,7 @@ async function promptForConfig(projectName?: string): Promise<ProjectConfig> {
       name: 'packageManager',
       message: 'Select package manager:',
       choices: [
-        { name: 'pnpm (Recommended)', value: 'pnpm' },
+        { name: 'pnpm', value: 'pnpm' },
         { name: 'npm', value: 'npm' },
         { name: 'yarn', value: 'yarn' }
       ],
@@ -92,7 +92,7 @@ async function promptForConfig(projectName?: string): Promise<ProjectConfig> {
     {
       type: 'list',
       name: 'useHusky',
-      message: 'Set up Husky (Git hooks)?',
+      message: 'Set up Husky?',
       choices: [
         { name: 'Yes', value: true },
         { name: 'No', value: false }
