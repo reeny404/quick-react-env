@@ -4,8 +4,6 @@ import { execSync } from 'child_process';
 import chalk from 'chalk';
 import ora from 'ora';
 import { ProjectConfig } from './types.js';
-import { copyViteTemplate } from './templates/vite.js';
-import { copyNextTemplate } from './templates/next.js';
 import { getESLintConfig } from './templates/eslint.js';
 import { getPrettierConfig } from './templates/prettier.js';
 import { getHuskyConfig } from './templates/husky.js';
@@ -13,28 +11,18 @@ import { getHuskyConfig } from './templates/husky.js';
 export async function createProject(config: ProjectConfig): Promise<void> {
   const projectPath = path.resolve(process.cwd(), config.projectName);
   
-  const spinner = ora('Creating project directory...').start();
+  const spinner = ora('Creating project...').start();
   
   try {
-    await fs.ensureDir(projectPath);
-    spinner.succeed('Project directory created');
-  } catch (error) {
-    spinner.fail('Failed to create project directory');
-    throw error;
-  }
-
-  spinner.text = 'Creating base files...';
-  spinner.start();
-
-  try {
+    // Create project using npx commands
     if (config.framework === 'vite') {
-      await copyViteTemplate(projectPath, config);
+      await createViteProject(projectPath, config);
     } else {
-      await copyNextTemplate(projectPath, config);
+      await createNextProject(projectPath, config);
     }
-    spinner.succeed('Base files created');
+    spinner.succeed('Base project created');
   } catch (error) {
-    spinner.fail('Failed to create base files');
+    spinner.fail('Failed to create base project');
     throw error;
   }
 
@@ -77,15 +65,53 @@ export async function createProject(config: ProjectConfig): Promise<void> {
     }
   }
 
-  spinner.text = 'Installing dependencies...';
+  spinner.text = 'Installing additional dependencies...';
   spinner.start();
   
   try {
-    await installDependencies(projectPath, config);
-    spinner.succeed('Dependencies installed');
+    await installAdditionalDependencies(projectPath, config);
+    spinner.succeed('Additional dependencies installed');
   } catch (error) {
-    spinner.fail('Failed to install dependencies');
+    spinner.fail('Failed to install additional dependencies');
     throw error;
+  }
+}
+
+async function createViteProject(projectPath: string, config: ProjectConfig): Promise<void> {
+  const originalCwd = process.cwd();
+  
+  try {
+    // Change to parent directory to create project
+    const parentDir = path.dirname(projectPath);
+    const projectName = path.basename(projectPath);
+    
+    process.chdir(parentDir);
+    
+    // Use npx create-vite to create the project
+    const createCommand = `npx create-vite@latest ${projectName} --template react-ts --yes`;
+    execSync(createCommand, { stdio: 'inherit' });
+    
+  } finally {
+    process.chdir(originalCwd);
+  }
+}
+
+async function createNextProject(projectPath: string, config: ProjectConfig): Promise<void> {
+  const originalCwd = process.cwd();
+  
+  try {
+    // Change to parent directory to create project
+    const parentDir = path.dirname(projectPath);
+    const projectName = path.basename(projectPath);
+    
+    process.chdir(parentDir);
+    
+    // Use npx create-next-app to create the project
+    const createCommand = `npx create-next-app@latest ${projectName} --typescript --tailwind --eslint --app --src-dir --import-alias "@/*" --yes`;
+    execSync(createCommand, { stdio: 'inherit' });
+    
+  } finally {
+    process.chdir(originalCwd);
   }
 }
 
@@ -114,7 +140,6 @@ async function setupHusky(projectPath: string, config: ProjectConfig): Promise<v
   const packageJsonPath = path.join(projectPath, 'package.json');
   const packageJson = await fs.readJson(packageJsonPath);
   
-
   if (!packageJson['lint-staged']) {
     packageJson['lint-staged'] = {
       '**/*.{ts,tsx}': [
@@ -128,24 +153,73 @@ async function setupHusky(projectPath: string, config: ProjectConfig): Promise<v
   await fs.writeJson(packageJsonPath, packageJson, { spaces: 2 });
 }
 
-async function installDependencies(projectPath: string, config: ProjectConfig): Promise<void> {
+async function installAdditionalDependencies(projectPath: string, {useESLint, usePrettier, useHusky, framework, packageManager}: ProjectConfig): Promise<void> {
   const originalCwd = process.cwd();
   
   try {
     process.chdir(projectPath);
     
-    const installCommand = config.packageManager === 'pnpm' ? 'pnpm install' :
-                          config.packageManager === 'yarn' ? 'yarn install' :
-                          'npm install';
+    await ensurePackageManager(packageManager);
     
-
-    execSync(installCommand, { stdio: 'inherit' });
+    const additionalDeps = [];
     
-    if (config.useHusky) {
+    if (useESLint) {
+      // Vite와 Next.js에서 이미 제공하는 ESLint 패키지들을 제외하고 추가 패키지만 설치
+      if (framework === 'vite') {
+        additionalDeps.push('@typescript-eslint/eslint-plugin', '@typescript-eslint/parser', 'eslint-plugin-simple-import-sort');
+      } else {
+        // Next.js는 이미 TypeScript ESLint를 포함하므로 simple-import-sort만 추가
+        additionalDeps.push('eslint-plugin-simple-import-sort');
+      }
+    }
+    
+    if (usePrettier) {
+      additionalDeps.push('prettier');
+      if (useESLint) {
+        additionalDeps.push('eslint-plugin-prettier');
+      }
+    }
+    
+    if (useHusky) {
+      additionalDeps.push('husky', 'lint-staged');
+    }
+    
+    if (additionalDeps.length > 0) {
+      const installCommand = packageManager === 'npm' 
+        ? `${packageManager} install --save-dev ${additionalDeps.join(' ')}` 
+        : `${packageManager} add -D ${additionalDeps.join(' ')}`;
+      
+      execSync(installCommand, { stdio: 'inherit' });
+    }
+    
+    if (useHusky) {
       execSync('npx husky init', { stdio: 'inherit' });
     }
     
   } finally {
     process.chdir(originalCwd);
+  }
+}
+
+async function ensurePackageManager(packageManager: string) {
+  try {
+    execSync(`${packageManager} --version`, { stdio: 'ignore' });
+  } catch (error) {
+    console.log(chalk.yellow(`${packageManager} is not installed. Installing it now...`));
+    
+    switch (packageManager) {
+      case 'pnpm':
+        execSync('npm install -g pnpm', { stdio: 'inherit' });
+        console.log(chalk.green('pnpm installed successfully!'));
+        break;
+      case 'yarn':
+        execSync('npm install -g yarn', { stdio: 'inherit' });
+        console.log(chalk.green('yarn installed successfully!'));
+        break;
+      case 'npm':
+        throw new Error('npm is not available. Please install Node.js.');
+      default:
+        throw new Error(`Unknown package manager: ${packageManager}`);
+    }
   }
 }

@@ -23,7 +23,7 @@ npx init-env
 
 ### 개발 도구
 - TypeScript
-- Tailwind CSS v4
+- Tailwind CSS
 - ESLint
 - Prettier
 - Husky
@@ -94,4 +94,4 @@ npm login
 
 # 배포
 npm publish
-``` -->
+```
