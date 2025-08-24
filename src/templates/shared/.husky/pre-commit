@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "Running TypeScript type check..."
+{{packageManager}} run tsc --noEmit
+
+echo "Running ESLint..."
+{{packageManager}} run lint
+
+echo "Running Prettier..."
+{{packageManager}} run format
+
+echo "All checks passed!"
