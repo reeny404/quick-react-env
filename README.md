@@ -1,31 +1,16 @@
-A simple CLI tool to bootstrap React projects with TypeScript, Tailwind CSS, and development tools.
+<div align="center">
+<img src="public/logo.png" height="200">
+<p>
+A CLI tool that automatically sets up React projects <br/>with TypeScript, Tailwind CSS, and essential development tools.
+</p>
+</div>
+<br/>
+
 ## 빠른 시작
 
-### npx로 실행 (추천)
 ```bash
-npx init-env my-app
+npx init-env my-app --framework vite
 ```
-
-### 전역 설치
-```bash
-npm install -g init-env
-init-env my-app
-```
-
-## 사용법
-
-### 기본 사용법
-```bash
-init-env my-app
-```
-
-### 옵션과 함께 사용
-```bash
-# Next.js 프로젝트 자동 생성
-init-env my-next-app --framework next --yes
-```
-
-### 사용 가능한 옵션
 
 | 옵션 | 설명 | 기본값 |
 |------|------|--------|
@@ -87,23 +72,6 @@ my-app/
 ├── .prettierrc          # Prettier 설정 (선택사항)
 ├── .husky/              # Husky Git 훅 (선택사항)
 └── package.json         # 프로젝트 설정
-```
-
-## 사용 예시
-
-### 1. 기본 Vite 프로젝트 생성
-```bash
-init-env my-vite-app
-```
-
-### 2. 모든 도구가 포함된 Next.js 프로젝트 생성
-```bash
-init-env my-next-app --framework next
-```
-
-### 3. 자동 모드로 프로젝트 생성
-```bash
-init-env my-auto-app --yes
 ```
 
 <!-- 
