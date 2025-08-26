@@ -1,15 +1,29 @@
-import { ProjectConfig } from '../types.js';
 import fs from 'fs-extra';
 import path from 'path';
+import { ProjectConfig } from '../types.js';
 
-export async function copyESLintConfig(projectPath: string, config: ProjectConfig): Promise<void> {
-  const templateDir = path.join(process.cwd(), 'src', 'templates', 'eslint');
-  
-  if (config.framework === 'vite') {
-    const configFile = config.usePrettier ? 'vite.config.prettier.js' : 'vite.config.js';
-    await fs.copy(path.join(templateDir, configFile), path.join(projectPath, 'eslint.config.js'));
-  } else {
-    const configFile = config.usePrettier ? 'next.prettier.json' : 'next.json';
-    await fs.copy(path.join(templateDir, configFile), path.join(projectPath, '.eslintrc.json'));
+export async function copyESLintConfig(
+  projectPath: string,
+  config: ProjectConfig,
+): Promise<void> {
+  const currentFileUrl = import.meta.url;
+  const currentDir = path.dirname(new URL(currentFileUrl).pathname);
+  const templateDir = path.join(currentDir, 'shared');
+
+  switch (config.framework) {
+    case 'vite':
+      await fs.copy(
+        path.join(templateDir, 'eslint.config.js'),
+        path.join(projectPath, 'eslint.config.js'),
+      );
+      break;
+    case 'next':
+      await fs.copy(
+        path.join(templateDir, 'eslint.config.mjs'),
+        path.join(projectPath, 'eslint.config.mjs'),
+      );
+      break;
+    default:
+      throw new Error(`Unsupported framework: ${config.framework}`);
   }
 }

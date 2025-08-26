@@ -8,9 +8,9 @@
 ## 빠른 시작
 
 ```bash
-npm i init-react-env
+npm i react-starter-cli
 
-npx init-env
+npx react-env
 ```
 
 <br />
@@ -18,10 +18,12 @@ npx init-env
 ## 지원하는 도구들
 
 #### 프레임워크
+
 - Vite
 - Next.js
 
 #### 개발 도구
+
 - TypeScript
 - Tailwind CSS
 - ESLint
@@ -29,6 +31,7 @@ npx init-env
 - Husky
 
 #### 패키지 매니저
+
 - pnpm
 - npm
 - yarn
@@ -38,6 +41,7 @@ npx init-env
 ## 생성되는 프로젝트 구조
 
 #### Vite 프로젝트
+
 ```
 my-app/
 ├── src/
@@ -58,6 +62,7 @@ my-app/
 ```
 
 #### Next.js 프로젝트
+
 ```
 my-app/
 ├── src/
@@ -74,7 +79,7 @@ my-app/
 └── package.json         # 프로젝트 설정
 ```
 
-<!-- 
+<!--
 ## 개발
 
 ### 로컬에서 테스트
@@ -97,3 +102,4 @@ npm login
 # 배포
 npm publish
 ```
+-->
