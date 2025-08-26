@@ -1,10 +1,10 @@
 {
-  "name": "init-react-env",
+  "name": "react-starter-cli",
   "version": "1.0.0",
   "description": "React + TypeScript + Tailwind + ESLint + Prettier + Husky 프로젝트 초기화 도구",
   "main": "dist/index.js",
   "bin": {
-    "init-env": "./dist/index.js"
+    "react-env": "./dist/index.js"
   },
   "type": "module",
   "files": [
