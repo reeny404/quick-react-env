@@ -1,10 +1,6 @@
 <div align="center">
   <img src="public/logo.png" height="200">
-  <p>
-    A CLI tool that automatically sets up React projects 
-    <br/>
-    with TypeScript, Tailwind CSS, and essential development tools.
-  </p>
+  <p>기본 설정이 완료된 React 프로젝트를 생성하는 CLI</p>
 </div>
 
 <br/>
@@ -17,27 +13,31 @@ npm i init-react-env
 npx init-env
 ```
 
+<br />
+
 ## 지원하는 도구들
 
-### 프레임워크
+#### 프레임워크
 - Vite
 - Next.js
 
-### 개발 도구
+#### 개발 도구
 - TypeScript
 - Tailwind CSS
 - ESLint
 - Prettier
 - Husky
 
-### 패키지 매니저
+#### 패키지 매니저
 - pnpm
 - npm
 - yarn
 
+<br />
+
 ## 생성되는 프로젝트 구조
 
-### Vite 프로젝트
+#### Vite 프로젝트
 ```
 my-app/
 ├── src/
@@ -57,7 +57,7 @@ my-app/
 └── package.json         # 프로젝트 설정
 ```
 
-### Next.js 프로젝트
+#### Next.js 프로젝트
 ```
 my-app/
 ├── src/
