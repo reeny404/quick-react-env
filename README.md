@@ -10,7 +10,7 @@
 ```bash
 npm i react-starter-cli
 
-npx quck-react-env
+npx quick-react-env
 ```
 
 <br />
