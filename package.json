@@ -1,6 +1,6 @@
 {
   "name": "quick-react-env",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React + TypeScript + Tailwind + ESLint + Prettier + Husky 프로젝트 초기화 도구",
   "main": "dist/index.js",
   "bin": {

@@ -179,9 +179,15 @@ async function setupVSCodeConfig(
   const vscodeDir = path.join(projectPath, '.vscode');
   await fs.ensureDir(vscodeDir);
 
+  const pathname = path.dirname(new URL(import.meta.url).pathname);
+  const dirname =
+    process.platform === 'win32'
+      ? pathname.replace(/^\/([A-Za-z]):/, '$1:')
+      : pathname;
+
   // extensions.json 파일 복사
   const extensionsJsonPath = path.join(
-    __dirname,
+    dirname,
     'templates',
     'shared',
     '.vscode',
@@ -192,7 +198,7 @@ async function setupVSCodeConfig(
 
   // settings.json 파일 복사
   const settingsJsonPath = path.join(
-    __dirname,
+    dirname,
     'templates',
     'shared',
     '.vscode',

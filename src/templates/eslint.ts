@@ -8,7 +8,14 @@ export async function copyESLintConfig(
 ): Promise<void> {
   const currentFileUrl = import.meta.url;
   const currentDir = path.dirname(new URL(currentFileUrl).pathname);
-  const templateDir = path.join(currentDir, 'shared');
+
+  // Windows 경로 문제 해결
+  const normalizedDir =
+    process.platform === 'win32'
+      ? currentDir.replace(/^\/([A-Za-z]):/, '$1:')
+      : currentDir;
+
+  const templateDir = path.join(normalizedDir, 'shared');
 
   switch (config.framework) {
     case 'vite':

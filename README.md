@@ -71,13 +71,13 @@ node dist/index.js
 
 ```bash
 # 전역에서 사용할 수 있도록 연결하기 (한 번만 실행)
-pnpm run link
+pnpm link
 
 # 위치 상관없이 사용 가능
 quick-react-env
 
 # 전역 사용 해제
-pnpm run unlink
+pnpm unlink
 ```
 
 #### customizing 한 파일 반영
