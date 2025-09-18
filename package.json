@@ -13,9 +13,11 @@
   ],
   "scripts": {
     "build": "tsc && npm run copy-templates",
-    "copy-templates": "cp -r src/templates/shared dist/templates/",
     "dev": "tsc --watch",
     "prepublishOnly": "npm run build",
+    "copy-templates": "cp -r src/templates/shared dist/templates/",
+    "link": "pnpm run build && pnpm link --global",
+    "unlink": "pnpm unlink --global",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
