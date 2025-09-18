@@ -5,7 +5,7 @@
 
 <br/>
 
-# how to use
+## 사용법
 
 정해진 내용으로 빠르게 이용하거나 본인만의 설정으로 바꿔 쓸 수 있습니다.
 
@@ -17,9 +17,7 @@ npm i react-starter-cli
 npx quick-react-env
 ```
 
-<br />
-
-## 2. 입맛대로 사용하기
+## 2. 입맛대로 바꿔 사용하기
 
 ### 1. git clone & install
 
@@ -31,7 +29,7 @@ cd quick-react-env
 pnpm install
 ```
 
-### 2. customizing
+### 2. customize /src/template
 
 #### ESLint
 
@@ -69,7 +67,7 @@ pnpm run build
 node dist/index.js
 ```
 
-### 4. 로컬에서 전역 사용하기
+### 4. local에서 사용하기
 
 ```bash
 # 전역에서 사용할 수 있도록 연결하기 (한 번만 실행)
@@ -123,7 +121,7 @@ npm publish
 
 <br />
 
-## 지원하는 tool
+## 설치되거나 셋팅하는 대상
 
 #### 프레임워크
 
