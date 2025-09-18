@@ -64,6 +64,17 @@ export async function createProject(config: ProjectConfig): Promise<void> {
     }
   }
 
+  spinner.text = 'Setting up VSCode configuration...';
+  spinner.start();
+  
+  try {
+    await setupVSCodeConfig(projectPath, config);
+    spinner.succeed('VSCode configuration added');
+  } catch (error) {
+    spinner.fail('Failed to setup VSCode configuration');
+    throw error;
+  }
+
   spinner.text = 'Installing additional dependencies...';
   spinner.start();
   
@@ -140,6 +151,21 @@ async function setupHusky(projectPath: string, config: ProjectConfig): Promise<v
   }
   
   await fs.writeJson(packageJsonPath, packageJson, { spaces: 2 });
+}
+
+async function setupVSCodeConfig(projectPath: string, config: ProjectConfig): Promise<void> {
+  const vscodeDir = path.join(projectPath, '.vscode');
+  await fs.ensureDir(vscodeDir);
+  
+  // extensions.json 파일 복사
+  const extensionsJsonPath = path.join(__dirname, 'templates', 'shared', '.vscode', 'extensions.json');
+  const targetExtensionsPath = path.join(vscodeDir, 'extensions.json');
+  await fs.copy(extensionsJsonPath, targetExtensionsPath);
+  
+  // settings.json 파일 복사
+  const settingsJsonPath = path.join(__dirname, 'templates', 'shared', '.vscode', 'settings.json');
+  const targetSettingsPath = path.join(vscodeDir, 'settings.json');
+  await fs.copy(settingsJsonPath, targetSettingsPath);
 }
 
 async function installAdditionalDependencies(projectPath: string, {useESLint, usePrettier, useHusky, framework, packageManager}: ProjectConfig): Promise<void> {
