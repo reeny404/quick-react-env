@@ -1,6 +1,6 @@
 <div align="center">
   <img src="public/logo.png" height="200">
-  <p>기본 설정이 완료된 React 프로젝트를 생성하는 CLI</p>
+  <div>Quickly set up a React project environment</div>
 </div>
 
 <br/>
