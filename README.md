@@ -73,22 +73,11 @@ node dist/index.js
 # 전역에서 사용할 수 있도록 연결하기 (한 번만 실행)
 pnpm run link
 
-# 어디서든 사용 가능
+# 위치 상관없이 사용 가능
 quick-react-env
 
 # 전역 사용 해제
 pnpm run unlink
-```
-
-#### 링크 후 사용법
-
-```bash
-# 어느 디렉토리에서든 새 프로젝트 생성
-quick-react-env my-new-app
-
-# 예시
-cd ~/Desktop
-quick-react-env portfolio-site
 ```
 
 #### customizing 한 파일 반영
