@@ -54,17 +54,17 @@ Vite
 - src/templates/shared/vite.config.ts
 ```
 
-### 3. 빌드 및 테스트
+#### customizing 한 파일 반영
 
 ```bash
-# 빌드
+# 코드 수정 후 현재 프로젝트에서 빌드
 pnpm run build
 
-# 로컬에서 테스트
-node dist/index.js
+# 링크된 버전이 바로 반영되어 다른 곳에서 바로 사용 가능
+quick-react-env
 ```
 
-### 4. local에서 사용하기
+### custom한 내용으로 local 어디에서든 사용하기 (편의성 위해)
 
 ```bash
 # 전역에서 사용할 수 있도록 연결하기 (한 번만 실행)
@@ -77,15 +77,9 @@ quick-react-env
 pnpm unlink
 ```
 
-#### customizing 한 파일 반영
+<br />
 
-```bash
-# 코드 수정 후 현재 프로젝트에서 빌드
-pnpm run build
-
-# 링크된 버전이 바로 반영되어 다른 곳에서 바로 사용 가능
-quick-react-env
-```
+## 참고  
 
 #### 링크 확인
 
@@ -104,6 +98,17 @@ quick-react-env --help
 npm login
 npm publish
 ``` -->
+
+
+### local 빌드 및 테스트
+
+```bash
+# 빌드
+pnpm run build
+
+# 로컬에서 테스트
+node dist/index.js
+```
 
 <br />
 
