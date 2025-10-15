@@ -62,26 +62,19 @@ pnpm run build
 
 # 링크된 버전이 바로 반영되어 다른 곳에서 바로 사용 가능
 quick-react-env
-```
 
-### custom한 내용으로 local 어디에서든 사용하기 (편의성 위해)
-
-```bash
 # 전역에서 사용할 수 있도록 연결하기 (한 번만 실행)
 pnpm link
 
-# 위치 상관없이 사용 가능
+# 위치 상관없이 아래처럼 사용 가능
 quick-react-env
-
-# 전역 사용 해제
-pnpm unlink
 ```
 
 <br />
 
 ## 참고  
 
-#### 링크 확인
+#### 링크 확인 / 링크 끊기
 
 ```bash
 # 전역 패키지 목록에서 확인
@@ -89,6 +82,9 @@ pnpm list -g --depth=0
 
 # 또는 직접 실행해서 확인
 quick-react-env --help
+
+# 링크 끊기 (전역 사용 해제: 더이상 전역에서 사용하고 싶지 않을 경우)
+pnpm unlink
 ```
 
 <!-- ### 5. npm에 배포
