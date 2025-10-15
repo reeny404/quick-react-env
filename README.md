@@ -83,7 +83,7 @@ pnpm list -g --depth=0
 # 또는 직접 실행해서 확인
 quick-react-env --help
 
-# 링크 끊기 (전역 사용 해제: 더이상 전역에서 사용하고 싶지 않을 경우)
+# 링크 끊기 (전역 사용 해제)
 pnpm unlink
 ```
 
