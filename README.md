@@ -7,9 +7,7 @@
 
 ## 사용법
 
-정해진 내용으로 빠르게 이용하거나 본인만의 설정으로 바꿔 쓸 수 있습니다.
-
-## 1. 기본 설정으로 빠르게 사용하기
+## 방법 1. 기본 설정으로 빠르게 사용하기
 
 ```bash
 npm i react-starter-cli
@@ -17,7 +15,7 @@ npm i react-starter-cli
 npx quick-react-env
 ```
 
-## 2. 입맛대로 바꿔 사용하기
+## 방법 2. 입맛대로 바꿔 사용하기
 
 ### 1. git clone & install
 
@@ -31,31 +29,30 @@ pnpm install
 
 ### 2. customize /src/template
 
-#### ESLint
+- 원하는 내용으로 변경하여 수정하기
 
-- `src/templates/shared/eslint.config.js` (Vite용)
-- `src/templates/shared/eslint.config.mjs` (Next.js용)
+#### 파일 위치 
+```
+ESLint
+- src/templates/shared/eslint.config.js  (Vite용)
+- src/templates/shared/eslint.config.mjs (Next.js용)
 
-#### Prettier
+Prettier
+- src/templates/prettier.ts
 
-- `src/templates/prettier.ts`
+Husky
+- src/templates/husky.ts
 
-#### Husky
+VSCode
+- src/templates/shared/.vscode/settings.json
+- src/templates/shared/.vscode/extensions.json
 
-- `src/templates/husky.ts`
+TypeScript
+- src/templates/shared/tsconfig.json
 
-#### VSCode
-
-- `src/templates/shared/.vscode/settings.json`
-- `src/templates/shared/.vscode/extensions.json`
-
-#### TypeScript
-
-- `src/templates/shared/tsconfig.json`
-
-#### Vite
-
-- `src/templates/shared/vite.config.ts`
+Vite
+- src/templates/shared/vite.config.ts
+```
 
 ### 3. 빌드 및 테스트
 
